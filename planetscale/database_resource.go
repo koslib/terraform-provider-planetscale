@@ -3,6 +3,7 @@ package planetscale
 import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/planetscale/planetscale-go/planetscale"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -143,6 +144,30 @@ func (r *databaseResource) Update(ctx context.Context, req resource.UpdateReques
 
 // Delete deletes the resource and removes the Terraform state on success.
 func (r *databaseResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	// Retrieve values from state
+	var state databaseResourceModel
+	diags := req.State.Get(ctx, &state)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Delete existing Planetscale database
+	ctx = tflog.SetField(ctx, "organization", state.Organization.ValueString())
+	ctx = tflog.SetField(ctx, "database", state.Name.ValueString())
+
+	_, err := r.client.Databases.Delete(ctx, &planetscale.DeleteDatabaseRequest{
+		Organization: state.Organization.ValueString(),
+		Database:     state.Name.ValueString(),
+	})
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error deleting Planetscale database",
+			"Could not delete database, unexpected error: "+err.Error(),
+		)
+		return
+	}
+	tflog.Info(ctx, "deleted Planetscale database")
 }
 
 // Configure adds the provider configured client to the resource.
