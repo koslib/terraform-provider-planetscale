@@ -140,6 +140,7 @@ func (r *databaseResource) Read(ctx context.Context, req resource.ReadRequest, r
 
 // Update updates the resource and sets the updated Terraform state on success.
 func (r *databaseResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	// not supported by the golang sdk (https://github.com/planetscale/planetscale-go) yet
 }
 
 // Delete deletes the resource and removes the Terraform state on success.
