@@ -2,7 +2,6 @@ package planetscale
 
 import (
 	"context"
-	"fmt"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -54,7 +53,7 @@ func (d *databasesDataSource) Metadata(_ context.Context, req datasource.Metadat
 func (d *databasesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"organization": schema.StringAttribute{Optional: true},
+			"organization": schema.StringAttribute{Required: true},
 			"databases": schema.ListNestedAttribute{
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
@@ -101,15 +100,16 @@ func (d *databasesDataSource) Read(ctx context.Context, req datasource.ReadReque
 	resp.Diagnostics.Append(req.Config.Get(ctx, &state)...)
 
 	if state.Organization.ValueString() != "" {
-		tflog.Info(ctx, fmt.Sprintf("reading data for organization: %v", state.Organization.ValueString()))
+		tflog.SetField(ctx, "organization", state.Organization.ValueString())
 	}
 
-	databases, err := d.client.Databases.List(context.Background(), &planetscale.ListDatabasesRequest{
+	tflog.Info(ctx, "requesting database listing from Planetscale")
+	databases, err := d.client.Databases.List(ctx, &planetscale.ListDatabasesRequest{
 		Organization: state.Organization.ValueString()},
 	)
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Unable to Read Planetscale Databases",
+			"unable to read Planetscale databases",
 			err.Error(),
 		)
 		return
