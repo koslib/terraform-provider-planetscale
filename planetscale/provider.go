@@ -159,6 +159,7 @@ func (p *planetscaleProvider) Configure(ctx context.Context, req provider.Config
 func (p *planetscaleProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		NewDatabasesDataSource,
+		NewRegionsDataSource,
 	}
 }
 
