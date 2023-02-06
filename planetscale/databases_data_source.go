@@ -9,7 +9,7 @@ import (
 	"github.com/planetscale/planetscale-go/planetscale"
 )
 
-// coffeesDataSourceModel maps the data source schema data.
+// databasesDataSourceModel maps the data source schema data.
 type databasesDataSourceModel struct {
 	Organization types.String     `tfsdk:"organization"`
 	Databases    []databasesModel `tfsdk:"databases"`
