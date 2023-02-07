@@ -15,7 +15,7 @@ var (
 	_ resource.ResourceWithConfigure = &databaseBranchResource{}
 )
 
-type databasebranchResourceModel struct {
+type databaseBranchResourceModel struct {
 	Name         types.String `tfsdk:"name"`
 	Database     types.String `tfsdk:"database"`
 	Organization types.String `tfsdk:"organization"`
@@ -84,7 +84,7 @@ func (r *databaseBranchResource) Schema(_ context.Context, _ resource.SchemaRequ
 // Create creates the resource and sets the initial Terraform state.
 func (r *databaseBranchResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	// Retrieve values from plan
-	var plan databasebranchResourceModel
+	var plan databaseBranchResourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -125,7 +125,7 @@ func (r *databaseBranchResource) Create(ctx context.Context, req resource.Create
 // Read refreshes the Terraform state with the latest data.
 func (r *databaseBranchResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	// Get current state
-	var state databasebranchResourceModel
+	var state databaseBranchResourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -168,7 +168,7 @@ func (r *databaseBranchResource) Update(ctx context.Context, req resource.Update
 // Delete deletes the resource and removes the Terraform state on success.
 func (r *databaseBranchResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	// Retrieve values from state
-	var state databasebranchResourceModel
+	var state databaseBranchResourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
