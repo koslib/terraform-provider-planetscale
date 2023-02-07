@@ -16,7 +16,7 @@ type databaseBranchesDataSourceModel struct {
 	DatabaseBranches []databaseBranchesModel `tfsdk:"database_branches"`
 }
 
-// databasesModel maps database-branch schema data.
+// databaseBranchesModel maps database-branch schema data.
 type databaseBranchesModel struct {
 	Name          types.String `tfsdk:"name"`
 	ParentBranch  types.String `tfsdk:"parent_branch"`
