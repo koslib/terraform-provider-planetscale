@@ -168,5 +168,6 @@ func (p *planetscaleProvider) DataSources(_ context.Context) []func() datasource
 func (p *planetscaleProvider) Resources(_ context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		NewDatabaseResource,
+		NewDatabaseBranchResource,
 	}
 }
