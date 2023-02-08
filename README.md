@@ -5,9 +5,9 @@ This is an unofficial Terraform provider for [Planetscale](https://planetscale.c
 
 ## Development
 
-This provider has been based on the awesome work Planetscale has done with their [Golang SDK](https://github.com/planetscale/planetscale-go.
+This provider has been based on the awesome work Planetscale has done with their [Golang SDK](https://github.com/planetscale/planetscale-go).
 
-Planetscale API docs can be found here: https://api-docs.planetscale.com/reference/list-databases
+Planetscale API docs can be found [here](https://api-docs.planetscale.com/).
 
 ### Contributing
 
