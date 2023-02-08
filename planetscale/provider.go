@@ -161,6 +161,7 @@ func (p *planetscaleProvider) DataSources(_ context.Context) []func() datasource
 		NewDatabasesDataSource,
 		NewRegionsDataSource,
 		NewDatabaseBranchesDataSource,
+		NewDatabaseBranchPasswordDataSource,
 	}
 }
 
