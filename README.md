@@ -3,6 +3,54 @@
 This is an unofficial Terraform provider for [Planetscale](https://planetscale.com/) built using the new
 [Terraform Plugin Framework](https://developer.hashicorp.com/terraform/plugin/framework) 🔥
 
+## Examples
+
+This provider focuses in being efficient and getting-the-job-done as easy as possible.
+
+The following is a very simple demonstration of an example use of this provider for typical use-cases with Planetscale:
+
+```
+provider "planetscale" {
+  service_token_id = "<my-service-token-id>"
+  service_token    = "<my-service-token>"
+}
+
+data "planetscale_databases" "all" {
+  organization = "my-awesome-org"
+}
+
+output "list_databases" {
+  value = data.planetscale_databases.all
+}
+
+data "planetscale_regions" "all" {}
+
+output "list_all_regions" {
+  value = data.planetscale_regions.all
+}
+
+resource "planetscale_database" "this" {
+  organization = "my-awesome-org"
+  name         = "test-from-tf"
+}
+
+resource "planetscale_database_branch" "this" {
+  organization = planetscale_database.this.organization
+  database     = planetscale_database.this.name
+  name         = "my-tf-branch"
+}
+
+resource "planetscale_database_branch_password" "my-user" {
+  organization = planetscale_database.this.organization
+  database     = planetscale_database.this.name
+  branch       = planetscale_database_branch.this.name
+  name         = "my-staging-env"
+}
+
+```
+
+More examples can be found in the `/examples` directory.
+
 ## Development
 
 This provider has been based on the awesome work Planetscale has done with their [Golang SDK](https://github.com/planetscale/planetscale-go).
