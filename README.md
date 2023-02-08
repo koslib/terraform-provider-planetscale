@@ -19,7 +19,7 @@ got an idea for an improvement - or just need help!
 
 Being more technical? [PRs](https://github.com/koslib/terraform-provider-planetscale/pulls) are welcome!
 
-Interested in maintaining this Github project? [Get in touch](https://twitter.com/koslib!
+Interested in maintaining this Github project? [Get in touch](https://twitter.com/koslib)!
 
 ### Docs
 
