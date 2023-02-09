@@ -65,7 +65,7 @@ func (r *databaseResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				Description: "The region where the database will be created. If not specified, the default region" +
 					" for the organization will be used. Values supported are: us-east, us-west, eu-west, ap-southeast," +
 					" ap-south, ap-northeast, eu-central, aws-ap-southeast-2, aws-sa-east-1, aws-sa-east-2. For more information" +
-					" on regions, please see here: https://planetscale.com/docs/reference/region",
+					" on regions, please see here: https://planetscale.com/docs/reference/region.",
 				Validators: []validator.String{
 					stringvalidator.OneOf(
 						"us-east",
