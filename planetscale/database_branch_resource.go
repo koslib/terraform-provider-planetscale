@@ -48,34 +48,44 @@ func (r *databaseBranchResource) Schema(_ context.Context, _ resource.SchemaRequ
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The name of the database branch.",
 			},
 			"database": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The name of the database to create the branch for.",
 			},
 			"organization": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The name of the organization to create the database branch in.",
 			},
 			"region": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "The region to create the database branch in. If not specified, the organization's default region will be used.",
 			},
 			"parent_branch": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "The name of the parent branch to create the database branch from. If not specified, the database's default branch will be used.",
 			},
 			"backup_id": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "The ID of the backup to create the database branch from. If not specified, the database's default branch will be used.",
 			},
 			"seed_data": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "The name of the database branch to seed the new database branch with. If not specified, the database's default branch will be used.",
 			},
 			"html_url": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "The URL to the database branch in the Planetscale UI.",
 			},
 			"production": schema.BoolAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Whether the database branch is a production branch.",
 			},
 			"ready": schema.BoolAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Whether the database branch is ready to be used.",
 			},
 		},
 	}

@@ -44,22 +44,28 @@ func (r *databaseResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The name of the database. This must be unique within the organization.",
 			},
 			"notes": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "Notes about the database. These are only visible to you and other members of the organization.",
 			},
 			"organization": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The organization where the database will be created.",
 			},
 			"region": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "The region where the database will be created. If not specified, the default region for the organization will be used.",
 			},
 			"html_url": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "The URL of the database in the Planetscale web UI.",
 			},
 			"state": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "The state of the database. This will be one of the following: creating, ready, or error.",
 			},
 		},
 	}

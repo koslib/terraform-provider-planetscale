@@ -49,32 +49,45 @@ func (d *databaseBranchesDataSource) Metadata(_ context.Context, req datasource.
 func (d *databaseBranchesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"organization": schema.StringAttribute{Required: true},
-			"database":     schema.StringAttribute{Required: true},
+			"organization": schema.StringAttribute{
+				Required:    true,
+				Description: "The name of the organization that the database belongs to.",
+			},
+			"database": schema.StringAttribute{
+				Required:    true,
+				Description: "The name of the database to get the branches for.",
+			},
 			"database_branches": schema.ListNestedAttribute{
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"name": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "The name of the database branch.",
 						},
 						"parent_branch": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "The name of the parent branch.",
 						},
 						"html_url": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "The URL to the database branch in the Planetscale UI.",
 						},
 						"region": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "The region where the database branch is hosted.",
 						},
 						"access_host_url": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "The URL to access the database branch.",
 						},
 						"production": schema.BoolAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Whether the database branch is a production branch.",
 						},
 						"ready": schema.BoolAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Whether the database branch is ready to be used.",
 						},
 					},
 				},

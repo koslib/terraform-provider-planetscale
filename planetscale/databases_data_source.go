@@ -59,31 +59,40 @@ func (d *databasesDataSource) Schema(_ context.Context, _ datasource.SchemaReque
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"name": schema.StringAttribute{
-							Computed: true,
+							Description: "Name of the database.",
+							Computed:    true,
 						},
 						"notes": schema.StringAttribute{
-							Computed: true,
+							Description: "Notes data for the database.",
+							Computed:    true,
 						},
 						"html_url": schema.StringAttribute{
-							Computed: true,
+							Description: "URL to the database in the web UI.",
+							Computed:    true,
 						},
 						"state": schema.StringAttribute{
-							Computed: true,
+							Description: "State of the database.",
+							Computed:    true,
 						},
 						"region": schema.SingleNestedAttribute{
-							Required: true,
+							Required:    true,
+							Description: "Region of the database.",
 							Attributes: map[string]schema.Attribute{
 								"name": schema.StringAttribute{
-									Computed: true,
+									Description: "Name of the region.",
+									Computed:    true,
 								},
 								"slug": schema.StringAttribute{
-									Computed: true,
+									Description: "Slug of the region.",
+									Computed:    true,
 								},
 								"location": schema.StringAttribute{
-									Computed: true,
+									Description: "Location of the region.",
+									Computed:    true,
 								},
 								"enabled": schema.BoolAttribute{
-									Computed: true,
+									Description: "Whether the region is enabled.",
+									Computed:    true,
 								},
 							},
 						},

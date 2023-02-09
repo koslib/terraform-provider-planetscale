@@ -49,19 +49,47 @@ func (d *databaseBranchPasswordDataSource) Metadata(_ context.Context, req datas
 func (d *databaseBranchPasswordDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"organization": schema.StringAttribute{Optional: true},
-			"database":     schema.StringAttribute{Optional: true},
-			"branch":       schema.StringAttribute{Optional: true},
+			"organization": schema.StringAttribute{
+				Optional:    true,
+				Description: "The name of the organization that the database belongs to. ",
+			},
+			"database": schema.StringAttribute{
+				Optional:    true,
+				Description: "The name of the database that the branch belongs to.",
+			},
+			"branch": schema.StringAttribute{
+				Optional:    true,
+				Description: "The name of the branch that the passwords belong to.",
+			},
 			"passwords": schema.ListNestedAttribute{
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
-						"name":      schema.StringAttribute{Computed: true},
-						"username":  schema.StringAttribute{Computed: true},
-						"hostname":  schema.StringAttribute{Computed: true},
-						"plaintext": schema.StringAttribute{Computed: true, Sensitive: true},
-						"public_id": schema.StringAttribute{Computed: true},
-						"role":      schema.StringAttribute{Computed: true},
+						"name": schema.StringAttribute{
+							Computed:    true,
+							Description: "The name of the password.",
+						},
+						"username": schema.StringAttribute{
+							Computed:    true,
+							Description: "The username for this password.",
+						},
+						"hostname": schema.StringAttribute{
+							Computed:    true,
+							Description: "The hostname for this password.",
+						},
+						"plaintext": schema.StringAttribute{
+							Computed:    true,
+							Sensitive:   true,
+							Description: "The plaintext password for this password. This value is sensitive and will not be stored in the state file.",
+						},
+						"public_id": schema.StringAttribute{
+							Computed:    true,
+							Description: "The public ID for this password.",
+						},
+						"role": schema.StringAttribute{
+							Computed:    true,
+							Description: "The role for this password.",
+						},
 					},
 				},
 			},

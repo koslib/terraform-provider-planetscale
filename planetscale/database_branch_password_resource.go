@@ -23,6 +23,7 @@ type databaseBranchPasswordResourceModel struct {
 	Role         types.String `tfsdk:"role"`
 	PublicID     types.String `tfsdk:"public_id"`
 	Username     types.String `tfsdk:"username"`
+	Plaintext    types.String `tfsdk:"plaintext"`
 }
 
 // NewDatabaseBranchPasswordResource is a helper function to simplify the provider implementation.
@@ -45,27 +46,38 @@ func (r *databaseBranchPasswordResource) Schema(_ context.Context, _ resource.Sc
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The name of the database branch password.",
 			},
 			"branch": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The name of the branch.",
 			},
 			"database": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The name of the database.",
 			},
 			"organization": schema.StringAttribute{
-				Required: true,
+				Required:    true,
+				Description: "The name of the organization.",
 			},
 			"role": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "The role of the database branch password.",
 			},
 			"public_id": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "The public ID of the database branch password.",
 			},
 			"username": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "The username of the database branch password.",
 			},
-			// todo: add plaintext password as a sensitive string attribute
+			"plaintext": schema.StringAttribute{
+				Computed:    true,
+				Sensitive:   true,
+				Description: "The plaintext password of the database branch password.",
+			},
 		},
 	}
 }
@@ -98,6 +110,7 @@ func (r *databaseBranchPasswordResource) Create(ctx context.Context, req resourc
 
 	plan.PublicID = types.StringValue(databaseBranchPassword.PublicID)
 	plan.Username = types.StringValue(databaseBranchPassword.Username)
+	plan.Plaintext = types.StringValue(databaseBranchPassword.PlainText)
 
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, plan)
@@ -136,6 +149,7 @@ func (r *databaseBranchPasswordResource) Read(ctx context.Context, req resource.
 	// Overwrite items with refreshed state
 	state.PublicID = types.StringValue(databaseBranchPassword.PublicID)
 	state.Username = types.StringValue(databaseBranchPassword.Username)
+	state.Plaintext = types.StringValue(databaseBranchPassword.PlainText)
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, &state)

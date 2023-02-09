@@ -37,20 +37,25 @@ func (d *regionsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"regions": schema.ListNestedAttribute{
-				Computed: true,
+				Description: "List of regions",
+				Computed:    true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"name": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "The name of the region.",
 						},
 						"slug": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "The slug of the region.",
 						},
 						"location": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "The location of the region in humanized form.",
 						},
 						"enabled": schema.BoolAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Whether the region is enabled or not.",
 						},
 					},
 				},
