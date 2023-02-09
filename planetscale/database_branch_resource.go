@@ -2,6 +2,8 @@ package planetscale
 
 import (
 	"context"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/planetscale/planetscale-go/planetscale"
@@ -63,8 +65,25 @@ func (r *databaseBranchResource) Schema(_ context.Context, _ resource.SchemaRequ
 				Description: "The name of the organization to create the database branch in.",
 			},
 			"region": schema.StringAttribute{
-				Optional:    true,
-				Description: "The region to create the database branch in. If not specified, the organization's default region will be used.",
+				Optional: true,
+				Description: "The region to create the database branch in. If not specified, the organization's default" +
+					" region will be used. Values supported are: us-east, us-west, eu-west, ap-southeast, ap-south," +
+					" ap-northeast, eu-central, aws-ap-southeast-2, aws-sa-east-1, aws-sa-east-2." +
+					" For more information on regions, please see here: https://planetscale.com/docs/reference/region.",
+				Validators: []validator.String{
+					stringvalidator.OneOf(
+						"us-east",
+						"us-west",
+						"eu-west",
+						"ap-southeast",
+						"ap-south",
+						"ap-northeast",
+						"eu-central",
+						"aws-ap-southeast-2",
+						"aws-sa-east-1",
+						"aws-sa-east-2",
+					),
+				},
 			},
 			"parent_branch": schema.StringAttribute{
 				Optional:    true,
