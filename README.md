@@ -85,6 +85,11 @@ Some points to remember and enhance potentially in future releases:
 1. The `/examples` path contains examples for both data-sources and resources that will end up in the documentation generated.
 2. The `Schema` in the resources and data-sources need to contain a `Description` so that the fields appearing in the documentation can actually make sense.
 
+## Known limitations/issues
+
+1. Resources updates: the Planetscale Golang SDK, on which this Terraform provider heavily relies on, does not support update operations everywhere. This means configuration of resources is not always successful.
+2. Data sources filtering: the filters supported are the filters supported by the Planetscale Golang SDK. More filters will be added as soon as the SDK offers support for them.
+
 ## Licence
 
 MIT License
