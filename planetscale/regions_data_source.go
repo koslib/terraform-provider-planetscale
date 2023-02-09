@@ -11,7 +11,8 @@ import (
 
 // coffeesDataSourceModel maps the data source schema data.
 type regionsDataSourceModel struct {
-	Regions []databaseRegionModel `tfsdk:"regions"`
+	Organization types.String          `tfsdk:"organization"`
+	Regions      []databaseRegionModel `tfsdk:"regions"`
 }
 
 func NewRegionsDataSource() datasource.DataSource {
@@ -37,6 +38,10 @@ func (d *regionsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest
 	resp.Schema = schema.Schema{
 		Description: "List of regions. This data source is used for listing regions enabled for your organization.",
 		Attributes: map[string]schema.Attribute{
+			"organization": schema.StringAttribute{
+				Required:    true,
+				Description: "The name of the organization to list regions for.",
+			},
 			"regions": schema.ListNestedAttribute{
 				Description: "List of regions",
 				Computed:    true,
@@ -71,10 +76,12 @@ func (d *regionsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 	resp.Diagnostics.Append(req.Config.Get(ctx, &state)...)
 
 	tflog.Info(ctx, "requesting regions listing from Planetscale")
-	regions, err := d.client.Organizations.ListRegions(ctx, &planetscale.ListOrganizationRegionsRequest{Organization: "koslib"})
+	regions, err := d.client.Organizations.ListRegions(ctx, &planetscale.ListOrganizationRegionsRequest{
+		Organization: state.Organization.ValueString(),
+	})
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"unable to read Planetscale regions",
+			"unable to read Planetscale regions. Make sure that the organization is correct and that you have the correct permissions.",
 			err.Error(),
 		)
 		return
