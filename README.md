@@ -10,36 +10,39 @@ This provider focuses in being efficient and getting-the-job-done as easy as pos
 The following is a very simple demonstration of an example use of this provider for typical use-cases with Planetscale:
 
 ```
+# Configure the provider
 provider "planetscale" {
   service_token_id = "<my-service-token-id>"
   service_token    = "<my-service-token>"
 }
 
-data "planetscale_databases" "all" {
-  organization = "my-awesome-org"
-}
-
-output "list_databases" {
-  value = data.planetscale_databases.all
-}
-
-data "planetscale_regions" "all" {}
-
-output "list_all_regions" {
-  value = data.planetscale_regions.all
-}
-
+# Create a database
 resource "planetscale_database" "this" {
   organization = "my-awesome-org"
   name         = "test-from-tf"
 }
 
+# List databases in your organization
+data "planetscale_databases" "all" {
+  organization = "my-awesome-org"
+}
+
+# Output the values of the databases fetched in the data source above
+output "list_databases" {
+  value = data.planetscale_databases.all
+}
+
+# A useful data source for fetching all regions enabled for you organization
+data "planetscale_regions" "all" {}
+
+# Create a database branch
 resource "planetscale_database_branch" "this" {
   organization = planetscale_database.this.organization
   database     = planetscale_database.this.name
   name         = "my-tf-branch"
 }
 
+# Create a database branch password
 resource "planetscale_database_branch_password" "my-user" {
   organization = planetscale_database.this.organization
   database     = planetscale_database.this.name
