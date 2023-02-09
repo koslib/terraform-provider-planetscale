@@ -42,6 +42,9 @@ func (r *databaseResource) Metadata(_ context.Context, req resource.MetadataRequ
 // Schema defines the schema for the resource.
 func (r *databaseResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "A Planetscale database. This resource will create a new database in your Planetscale organization." +
+			"Once created, you can manage the database using the Planetscale web UI or the Planetscale CLI. For more " +
+			"information on Planetscale databases, please see here: https://planetscale.com/docs/concepts/planetscale-workflow.",
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
 				Required:    true,

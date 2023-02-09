@@ -46,6 +46,9 @@ func (r *databaseBranchResource) Metadata(_ context.Context, req resource.Metada
 // Schema defines the schema for the resource.
 func (r *databaseBranchResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "A database branch resource. This resource allows you to create and manage database branches. " +
+			"A database branch is a copy of a database that can be used for development, testing, or other purposes." +
+			"For more information on database branches please see here: https://planetscale.com/docs/concepts/branching.",
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
 				Required:    true,

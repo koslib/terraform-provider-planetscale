@@ -48,6 +48,9 @@ func (d *databaseBranchesDataSource) Metadata(_ context.Context, req datasource.
 // Schema defines the schema for the data source.
 func (d *databaseBranchesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "The database branches data source provides information about the branches of a database. For more" +
+			" information, see the official documentation here:" +
+			" https://docs.planetscale.com/reference/cli/database-branches",
 		Attributes: map[string]schema.Attribute{
 			"organization": schema.StringAttribute{
 				Required:    true,

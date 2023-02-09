@@ -44,6 +44,10 @@ func (r *databaseBranchPasswordResource) Metadata(_ context.Context, req resourc
 // Schema defines the schema for the resource.
 func (r *databaseBranchPasswordResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "The database branch password resource allows you to manage a database branch password in " +
+			"Planetscale. This resource is used to create, read, update, and delete database branch passwords. For more" +
+			" information on database branch passwords, see the Planetscale documentation at " +
+			"https://planetscale.com/docs/concepts/connection-strings",
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
 				Required:    true,

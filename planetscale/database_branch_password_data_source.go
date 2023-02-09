@@ -48,6 +48,10 @@ func (d *databaseBranchPasswordDataSource) Metadata(_ context.Context, req datas
 // Schema defines the schema for the data source.
 func (d *databaseBranchPasswordDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "The database branch passwords data source provides a list of passwords for a database branch. At" +
+			" least one of organization, database or branch has to be provided for filtering. If you need to get a full" +
+			" list of passwords for all branches, you can filter by your organization name. For more information on " +
+			"database branch passwords, see here: https://planetscale.com/docs/concepts/connection-strings.",
 		Attributes: map[string]schema.Attribute{
 			"organization": schema.StringAttribute{
 				Optional:    true,
@@ -62,7 +66,8 @@ func (d *databaseBranchPasswordDataSource) Schema(_ context.Context, _ datasourc
 				Description: "The name of the branch that the passwords belong to.",
 			},
 			"passwords": schema.ListNestedAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "A list of passwords for the database branch. ",
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"name": schema.StringAttribute{

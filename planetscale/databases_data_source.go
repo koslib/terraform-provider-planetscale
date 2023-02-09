@@ -52,8 +52,12 @@ func (d *databasesDataSource) Metadata(_ context.Context, req datasource.Metadat
 // Schema defines the schema for the data source.
 func (d *databasesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "List of databases in the organization.",
 		Attributes: map[string]schema.Attribute{
-			"organization": schema.StringAttribute{Required: true},
+			"organization": schema.StringAttribute{
+				Required:    true,
+				Description: "The name of the organization to list databases for.",
+			},
 			"databases": schema.ListNestedAttribute{
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{

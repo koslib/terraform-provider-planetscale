@@ -35,6 +35,7 @@ func (d *regionsDataSource) Metadata(_ context.Context, req datasource.MetadataR
 // Schema defines the schema for the data source.
 func (d *regionsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "List of regions. This data source is used for listing regions enabled for your organization.",
 		Attributes: map[string]schema.Attribute{
 			"regions": schema.ListNestedAttribute{
 				Description: "List of regions",
