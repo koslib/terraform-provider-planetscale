@@ -9,7 +9,7 @@ This provider focuses in being efficient and getting-the-job-done as easy as pos
 
 The following is a very simple demonstration of an example use of this provider for typical use-cases with Planetscale:
 
-```
+```terraform
 # Configure the provider
 provider "planetscale" {
   service_token_id = "<my-service-token-id>"
