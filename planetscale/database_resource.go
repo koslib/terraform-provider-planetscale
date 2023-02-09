@@ -94,7 +94,8 @@ func (r *databaseResource) Create(ctx context.Context, req resource.CreateReques
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error creating database",
-			"Could not create database, unexpected error: "+err.Error(),
+			"Could not create database, unexpected error: "+err.Error()+". Make sure you have the correct "+
+				"permissions to create a database in the organization.",
 		)
 		return
 	}
@@ -177,7 +178,7 @@ func (r *databaseResource) Delete(ctx context.Context, req resource.DeleteReques
 		)
 		return
 	}
-	tflog.Info(ctx, "deleted Planetscale database")
+	tflog.Debug(ctx, "deleted Planetscale database")
 }
 
 // Configure adds the provider configured client to the resource.

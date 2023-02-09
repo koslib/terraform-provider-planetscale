@@ -122,7 +122,8 @@ func (d *databasesDataSource) Read(ctx context.Context, req datasource.ReadReque
 	)
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"unable to read Planetscale databases",
+			"Unable to read Planetscale databases. Make sure your credentials are correct and you have access "+
+				"to the organization, or that you have the correct permissions.",
 			err.Error(),
 		)
 		return

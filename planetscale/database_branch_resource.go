@@ -117,7 +117,8 @@ func (r *databaseBranchResource) Create(ctx context.Context, req resource.Create
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error creating database branch",
-			"Could not create database branch, unexpected error: "+err.Error(),
+			"Could not create database branch, unexpected error: "+err.Error()+". Make sure the database branch "+
+				"name is unique and that you have the correct permissions.",
 		)
 		return
 	}
@@ -125,6 +126,8 @@ func (r *databaseBranchResource) Create(ctx context.Context, req resource.Create
 	plan.HtmlURL = types.StringValue(databaseBranch.HtmlURL)
 	plan.Production = types.BoolValue(databaseBranch.Production)
 	plan.Ready = types.BoolValue(databaseBranch.Ready)
+
+	tflog.Debug(ctx, "database branch created")
 
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, plan)

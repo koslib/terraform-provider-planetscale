@@ -114,7 +114,8 @@ func (d *databaseBranchesDataSource) Read(ctx context.Context, req datasource.Re
 	)
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"unable to read Planetscale database branches",
+			"Unable to read Planetscale database branches. Make sure the database exists and you have "+
+				"access to it.",
 			err.Error(),
 		)
 		return

@@ -123,7 +123,7 @@ func (d *databaseBranchPasswordDataSource) Read(ctx context.Context, req datasou
 	)
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"unable to read Planetscale database branch passwords",
+			"Unable to read Planetscale database branch passwords. Make sure the organization, database, or branch exist and that you have the correct permissions.",
 			err.Error(),
 		)
 		return

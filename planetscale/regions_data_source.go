@@ -5,7 +5,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/planetscale/planetscale-go/planetscale"
 )
 
@@ -75,13 +74,13 @@ func (d *regionsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 
 	resp.Diagnostics.Append(req.Config.Get(ctx, &state)...)
 
-	tflog.Info(ctx, "requesting regions listing from Planetscale")
 	regions, err := d.client.Organizations.ListRegions(ctx, &planetscale.ListOrganizationRegionsRequest{
 		Organization: state.Organization.ValueString(),
 	})
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"unable to read Planetscale regions. Make sure that the organization is correct and that you have the correct permissions.",
+			"Unable to read Planetscale regions. Make sure that the organization is correct and that you have"+
+				" the correct permissions.",
 			err.Error(),
 		)
 		return

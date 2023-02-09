@@ -107,7 +107,8 @@ func (r *databaseBranchPasswordResource) Create(ctx context.Context, req resourc
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error creating database branch password",
-			"Could not create database branch password, unexpected error: "+err.Error(),
+			"Could not create database branch password, unexpected error: "+err.Error()+". Make sure the "+
+				"database branch password name is unique and that you have the correct permissions.",
 		)
 		return
 	}
@@ -145,7 +146,8 @@ func (r *databaseBranchPasswordResource) Read(ctx context.Context, req resource.
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error reading Planetscale database branch password",
-			"Could not read info about Planetscale database branch password "+state.Name.ValueString()+": "+err.Error(),
+			"Could not read info about Planetscale database branch password "+state.Name.ValueString()+": "+
+				err.Error()+". Make sure the database branch password exists and that you have the correct permissions.",
 		)
 		return
 	}
@@ -200,7 +202,7 @@ func (r *databaseBranchPasswordResource) Delete(ctx context.Context, req resourc
 		return
 	}
 
-	tflog.Info(ctx, "deleted Planetscale database branch password")
+	tflog.Debug(ctx, "deleted Planetscale database branch password")
 }
 
 // Configure adds the provider configured client to the resource.
