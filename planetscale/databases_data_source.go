@@ -52,7 +52,7 @@ func (d *databasesDataSource) Metadata(_ context.Context, req datasource.Metadat
 // Schema defines the schema for the data source.
 func (d *databasesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "List of databases in the organization.",
+		Description: "List of databases in the organization. At this time, it is not possible to list databases of a specific region only.",
 		Attributes: map[string]schema.Attribute{
 			"organization": schema.StringAttribute{
 				Required:    true,
