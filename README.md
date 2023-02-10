@@ -3,6 +3,29 @@
 This is an unofficial Terraform provider for [Planetscale](https://planetscale.com/) built using the new
 [Terraform Plugin Framework](https://developer.hashicorp.com/terraform/plugin/framework) 🔥
 
+## Getting started
+
+Add this provider in your terraform configuration block:
+
+```terraform
+terraform {
+  required_providers {
+    planetscale = {
+      source = "koslib/planetscale"
+      version = "0.2.0"
+    }
+  }
+}
+
+# Configure the planetscale provider
+provider "planetscale" {
+  service_token_id = "<my-service-token-id>"
+  service_token    = "<my-service-token>"
+}
+```
+
+See the following section for more quick examples as well as the `/examples` directory for more detailed demonstrations.
+
 ## Examples
 
 This provider focuses in being efficient and getting-the-job-done as easy as possible.
@@ -10,12 +33,6 @@ This provider focuses in being efficient and getting-the-job-done as easy as pos
 The following is a very simple demonstration of an example use of this provider for typical use-cases with Planetscale:
 
 ```terraform
-# Configure the provider
-provider "planetscale" {
-  service_token_id = "<my-service-token-id>"
-  service_token    = "<my-service-token>"
-}
-
 # Create a database
 resource "planetscale_database" "this" {
   organization = "my-awesome-org"
