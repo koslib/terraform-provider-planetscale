@@ -12,8 +12,7 @@ import (
 
 func main() {
 	err := providerserver.Serve(context.Background(), planetscale.New, providerserver.ServeOpts{
-		// todo: fix the provider address before release
-		Address: "koslib.com/tf/planetscale",
+		Address: "koslib/planetscale",
 	})
 	if err != nil {
 		log.Fatal(err.Error())
