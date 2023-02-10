@@ -27,7 +27,7 @@ This provider supports the majority of operations currently supported by the Pla
 
 terraform {
   required_providers {
-    aws = {
+    planetscale = {
       source  = "koslib/planetscale"
       version = "0.3"
     }

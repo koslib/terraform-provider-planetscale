@@ -14,7 +14,7 @@ terraform {
   required_providers {
     planetscale = {
       source = "koslib/planetscale"
-      version = "0.2.0"
+      version = "0.3.0"
     }
   }
 }
