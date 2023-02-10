@@ -43,10 +43,10 @@ func (p *planetscaleProvider) Schema(_ context.Context, _ provider.SchemaRequest
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"service_token": schema.StringAttribute{
-				Optional: true,
+				Required: true,
 			},
 			"service_token_id": schema.StringAttribute{
-				Optional: true,
+				Required: true,
 			},
 		},
 	}
