@@ -24,4 +24,7 @@ resource "planetscale_database_branch_password" "example" {
   database     = planetscale_database.this.name
   organization = local.organization
   branch       = planetscale_database_branch.example.name
+
+  # Optional
+  role         = "admin"
 }
