@@ -24,12 +24,28 @@ This provider supports the majority of operations currently supported by the Pla
 ## Example Usage
 
 ```terraform
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "koslib/planetscale"
+      version = "0.3"
+    }
+  }
+}
+
 # Service-token based configuration for the PlanetScale provider
 provider "planetscale" {
   service_token_id = "my-token-id"
   service_token    = "my-token"
 }
 ```
+
+## Authentication and Configuration
+
+Configuration for the PlanetScale Provider authentication can be derived only using Service Tokens at the moment.
+
+To learn more about service tokens, please check out the relevant docs [here](https://planetscale.com/docs/concepts/service-tokens).
 
 ## Schema
 
