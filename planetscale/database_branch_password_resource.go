@@ -2,6 +2,8 @@ package planetscale
 
 import (
 	"context"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/planetscale/planetscale-go/planetscale"
@@ -66,8 +68,17 @@ func (r *databaseBranchPasswordResource) Schema(_ context.Context, _ resource.Sc
 				Description: "The name of the organization.",
 			},
 			"role": schema.StringAttribute{
-				Optional:    true,
-				Description: "The role of the database branch password.",
+				Optional: true,
+				Description: "The role of the database branch password. Defaults to admin. Once a password is created, " +
+					"its role cannot be changed. Supported values: admin, reader, writer, readwriter.",
+				Validators: []validator.String{
+					stringvalidator.OneOf(
+						"admin",
+						"reader",
+						"writer",
+						"readwriter",
+					),
+				},
 			},
 			"public_id": schema.StringAttribute{
 				Computed:    true,
