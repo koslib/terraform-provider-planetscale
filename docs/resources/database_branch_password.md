@@ -24,7 +24,7 @@ The database branch password resource allows you to manage a database branch pas
 
 ### Optional
 
-- `role` (String) The role of the database branch password.
+- `role` (String) The role of the database branch password. Defaults to admin. Once a password is created, its role cannot be changed. Supported values: admin, reader, writer, readwriter.
 
 ### Read-Only
 
