@@ -70,7 +70,7 @@ func (r *databaseBranchPasswordResource) Schema(_ context.Context, _ resource.Sc
 				Description: "The role of the database branch password.",
 			},
 			"public_id": schema.StringAttribute{
-				Optional:    true,
+				Computed:    true,
 				Description: "The public ID of the database branch password.",
 			},
 			"username": schema.StringAttribute{
@@ -142,6 +142,7 @@ func (r *databaseBranchPasswordResource) Read(ctx context.Context, req resource.
 		Database:     state.Database.ValueString(),
 		Branch:       state.Branch.ValueString(),
 		Name:         state.Name.ValueString(),
+		PasswordId:   state.PublicID.ValueString(),
 	})
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -153,7 +154,6 @@ func (r *databaseBranchPasswordResource) Read(ctx context.Context, req resource.
 	}
 
 	// Overwrite items with refreshed state
-	state.PublicID = types.StringValue(databaseBranchPassword.PublicID)
 	state.Username = types.StringValue(databaseBranchPassword.Username)
 	state.Plaintext = types.StringValue(databaseBranchPassword.PlainText)
 
