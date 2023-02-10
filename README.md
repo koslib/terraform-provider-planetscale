@@ -1,7 +1,9 @@
-# Terraform Provider Planetscale
+# Terraform Provider for Planetscale
 
 This is an unofficial Terraform provider for [Planetscale](https://planetscale.com/) built using the new
 [Terraform Plugin Framework](https://developer.hashicorp.com/terraform/plugin/framework) 🔥
+
+Provider documentation: https://registry.terraform.io/providers/koslib/planetscale/latest/docs
 
 ## Getting started
 
