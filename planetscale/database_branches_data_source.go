@@ -20,7 +20,7 @@ type databaseBranchesDataSourceModel struct {
 type databaseBranchesModel struct {
 	Name          types.String `tfsdk:"name"`
 	ParentBranch  types.String `tfsdk:"parent_branch"`
-	HtmlURL       types.String `tfsdk:"html_url"`
+	HTMLURL       types.String `tfsdk:"html_url"`
 	Region        types.String `tfsdk:"region"`
 	AccessHostURL types.String `tfsdk:"access_host_url"`
 	Production    types.Bool   `tfsdk:"production"`
@@ -126,7 +126,7 @@ func (d *databaseBranchesDataSource) Read(ctx context.Context, req datasource.Re
 			Name:          types.StringValue(databaseBranch.Name),
 			ParentBranch:  types.StringValue(databaseBranch.ParentBranch),
 			Region:        types.StringValue(databaseBranch.Region.Name),
-			HtmlURL:       types.StringValue(databaseBranch.HtmlURL),
+			HTMLURL:       types.StringValue(databaseBranch.HtmlURL),
 			AccessHostURL: types.StringValue(databaseBranch.AccessHostURL),
 			Production:    types.BoolValue(databaseBranch.Production),
 			Ready:         types.BoolValue(databaseBranch.Ready),
@@ -140,7 +140,6 @@ func (d *databaseBranchesDataSource) Read(ctx context.Context, req datasource.Re
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 }
 
 // Configure adds the provider configured client to the data source.

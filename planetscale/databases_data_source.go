@@ -26,9 +26,9 @@ type databaseRegionModel struct {
 type databasesModel struct {
 	Name    types.String        `tfsdk:"name"`
 	Notes   types.String        `tfsdk:"notes"`
-	Region  databaseRegionModel `tfsdk:"region"`
-	HtmlURL types.String        `tfsdk:"html_url"`
+	HTMLURL types.String        `tfsdk:"html_url"`
 	State   types.String        `tfsdk:"state"`
+	Region  databaseRegionModel `tfsdk:"region"`
 }
 
 func NewDatabasesDataSource() datasource.DataSource {
@@ -139,7 +139,7 @@ func (d *databasesDataSource) Read(ctx context.Context, req datasource.ReadReque
 				Location: types.StringValue(database.Region.Location),
 				Enabled:  types.BoolValue(database.Region.Enabled),
 			},
-			HtmlURL: types.StringValue(database.HtmlURL),
+			HTMLURL: types.StringValue(database.HtmlURL),
 			State:   types.StringValue(string(database.State)),
 		}
 		state.Databases = append(state.Databases, dbState)
@@ -151,7 +151,6 @@ func (d *databasesDataSource) Read(ctx context.Context, req datasource.ReadReque
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 }
 
 // Configure adds the provider configured client to the data source.
