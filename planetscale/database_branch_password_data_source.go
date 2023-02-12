@@ -149,7 +149,6 @@ func (d *databaseBranchPasswordDataSource) Read(ctx context.Context, req datasou
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 }
 
 // Configure adds the provider configured client to the data source.

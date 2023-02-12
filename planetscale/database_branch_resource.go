@@ -25,7 +25,7 @@ type databaseBranchResourceModel struct {
 	ParentBranch types.String `tfsdk:"parent_branch"`
 	BackupID     types.String `tfsdk:"backup_id"`
 	SeedData     types.String `tfsdk:"seed_data"`
-	HtmlURL      types.String `tfsdk:"html_url"`
+	HTMLURL      types.String `tfsdk:"html_url"`
 	Production   types.Bool   `tfsdk:"production"`
 	Ready        types.Bool   `tfsdk:"ready"`
 }
@@ -142,7 +142,7 @@ func (r *databaseBranchResource) Create(ctx context.Context, req resource.Create
 		return
 	}
 
-	plan.HtmlURL = types.StringValue(databaseBranch.HtmlURL)
+	plan.HTMLURL = types.StringValue(databaseBranch.HtmlURL)
 	plan.Production = types.BoolValue(databaseBranch.Production)
 	plan.Ready = types.BoolValue(databaseBranch.Ready)
 
@@ -154,7 +154,6 @@ func (r *databaseBranchResource) Create(ctx context.Context, req resource.Create
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 }
 
 // Read refreshes the Terraform state with the latest data.
@@ -182,7 +181,7 @@ func (r *databaseBranchResource) Read(ctx context.Context, req resource.ReadRequ
 	}
 
 	// Overwrite items with refreshed state
-	state.HtmlURL = types.StringValue(databaseBranch.HtmlURL)
+	state.HTMLURL = types.StringValue(databaseBranch.HtmlURL)
 	state.Production = types.BoolValue(databaseBranch.Production)
 	state.Ready = types.BoolValue(databaseBranch.Ready)
 
@@ -192,7 +191,6 @@ func (r *databaseBranchResource) Read(ctx context.Context, req resource.ReadRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 }
 
 // Update updates the resource and sets the updated Terraform state on success.

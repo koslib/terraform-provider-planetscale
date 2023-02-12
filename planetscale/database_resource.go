@@ -22,7 +22,7 @@ type databaseResourceModel struct {
 	Notes        types.String `tfsdk:"notes"`
 	Organization types.String `tfsdk:"organization"`
 	Region       types.String `tfsdk:"region"`
-	HtmlURL      types.String `tfsdk:"html_url"`
+	HTMLURL      types.String `tfsdk:"html_url"`
 	State        types.String `tfsdk:"state"`
 }
 
@@ -119,7 +119,7 @@ func (r *databaseResource) Create(ctx context.Context, req resource.CreateReques
 		return
 	}
 
-	plan.HtmlURL = types.StringValue(database.HtmlURL)
+	plan.HTMLURL = types.StringValue(database.HtmlURL)
 	plan.State = types.StringValue(string(database.State))
 
 	// Set state to fully populated data
@@ -128,7 +128,6 @@ func (r *databaseResource) Create(ctx context.Context, req resource.CreateReques
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 }
 
 // Read refreshes the Terraform state with the latest data.
@@ -155,7 +154,7 @@ func (r *databaseResource) Read(ctx context.Context, req resource.ReadRequest, r
 	}
 
 	// Overwrite items with refreshed state
-	state.HtmlURL = types.StringValue(database.HtmlURL)
+	state.HTMLURL = types.StringValue(database.HtmlURL)
 	state.State = types.StringValue(string(database.State))
 
 	// Set refreshed state
@@ -164,7 +163,6 @@ func (r *databaseResource) Read(ctx context.Context, req resource.ReadRequest, r
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 }
 
 // Update updates the resource and sets the updated Terraform state on success.

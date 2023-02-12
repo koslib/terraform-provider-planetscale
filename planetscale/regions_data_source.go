@@ -102,7 +102,6 @@ func (d *regionsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 }
 
 // Configure adds the provider configured client to the data source.
