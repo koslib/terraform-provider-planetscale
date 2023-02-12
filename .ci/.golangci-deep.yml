@@ -1,0 +1,45 @@
+issues:
+  max-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  disable-all: true
+  enable:
+    - asciicheck
+    - durationcheck
+    - errcheck
+    - exportloopref
+    - gocritic
+    - gofmt
+    - gomnd
+    - gosimple
+    - ineffassign
+    - makezero
+    - misspell
+    - nakedret
+    - nilerr
+    - nolintlint
+    - paralleltest
+    - predeclared
+    - staticcheck
+    - stylecheck
+    - tenv
+    - tparallel
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - vet
+    - vetshadow
+    - whitespace
+
+linters-settings:
+  gofmt:
+    simplify: false
+  golint:
+    min-confidence: 0.7
+  govet:
+    enable-all: true
+
+run:
+  timeout: 30m

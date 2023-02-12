@@ -1,0 +1,42 @@
+name: golangci-lint Linter
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - .github/workflows/golangci-lint.yml
+      - planetscale/**
+      - go.sum
+      - main.go
+      - tools/**
+
+jobs:
+  golangci-lint-simple:
+    name: Simple check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version-file: .go-version
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.51.1
+          args: --config .ci/.golangci-simple.yml
+  golangci-lint-deep:
+    name: Deep check
+    needs: [golangci-lint-simple]
+    runs-on: [custom, linux, medium]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version-file: .go-version
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.51.1
+          args: --config .ci/.golangci-deep.yml
