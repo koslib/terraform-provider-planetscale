@@ -172,5 +172,6 @@ func (p *planetscaleProvider) Resources(_ context.Context) []func() resource.Res
 		NewDatabaseResource,
 		NewDatabaseBranchResource,
 		NewDatabaseBranchPasswordResource,
+		NewBackupResource,
 	}
 }
