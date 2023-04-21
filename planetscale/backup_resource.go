@@ -21,12 +21,12 @@ type backupResourceModel struct {
 	PublicID     types.String `tfsdk:"public_id"`
 	Name         types.String `tfsdk:"name"`
 	State        types.String `tfsdk:"state"`
-	Size         types.Int64  `tfsdk:"size"`
 	CreatedAt    types.String `tfsdk:"created_at"`
 	UpdatedAt    types.String `tfsdk:"updated_at"`
 	StartedAt    types.String `tfsdk:"started_at"`
 	ExpiresAt    types.String `tfsdk:"expires_at"`
 	CompletedAt  types.String `tfsdk:"completed_at"`
+	Size         types.Int64  `tfsdk:"size"`
 }
 
 // NewBackupResource is a helper function to simplify the provider implementation.
