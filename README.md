@@ -14,7 +14,7 @@ terraform {
   required_providers {
     planetscale = {
       source = "koslib/planetscale"
-      version = "0.3.0"
+      version = "~> 0.4"
     }
   }
 }
@@ -89,7 +89,7 @@ got an idea for an improvement - or just need help!
 
 Being more technical? [PRs](https://github.com/koslib/terraform-provider-planetscale/pulls) are welcome!
 
-Interested in maintaining this Github project? [Get in touch](https://twitter.com/koslib)!
+Interested in becoming a maintainer in this Github repository? [Get in touch](https://twitter.com/koslib)!
 
 ### Docs
 
