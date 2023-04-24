@@ -12,7 +12,7 @@ import (
 
 func main() {
 	err := providerserver.Serve(context.Background(), planetscale.New, providerserver.ServeOpts{
-		Address: "koslib/planetscale",
+		Address: "registry.terraform.io/koslib/planetscale",
 	})
 	if err != nil {
 		log.Fatal(err.Error())
