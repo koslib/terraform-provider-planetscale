@@ -2,6 +2,9 @@ package planetscale
 
 import (
 	"context"
+	"fmt"
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -205,4 +208,58 @@ func (r *databaseResource) Configure(_ context.Context, req resource.ConfigureRe
 	}
 
 	r.client = req.ProviderData.(*planetscale.Client)
+}
+
+func splitDatabaseResourceID(id string) (teamID, _id string, ok bool) {
+	attributes := strings.Split(id, "/")
+	requiredAttributesLength := 2
+	if len(attributes) != requiredAttributesLength {
+		return "", "", false
+	}
+	return attributes[0], attributes[1], true
+}
+
+func (r *databaseResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	organizationName, databaseName, ok := splitDatabaseResourceID(req.ID)
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Error importing database",
+			fmt.Sprintf("Invalid id '%s' specified. should be in format \"organization_name/database_name\"", req.ID),
+		)
+		return
+	}
+
+	out, err := r.client.Databases.Get(ctx, &planetscale.GetDatabaseRequest{
+		Organization: organizationName,
+		Database:     databaseName,
+	})
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error reading project",
+			fmt.Sprintf("Could not get database %s %s, unexpected error: %s",
+				organizationName,
+				databaseName,
+				err,
+			),
+		)
+		return
+	}
+
+	tflog.Trace(ctx, "imported database", map[string]interface{}{
+		organizationName: organizationName,
+		databaseName:     databaseName,
+	})
+
+	diags := resp.State.Set(ctx, &databaseResourceModel{
+		Name:         types.StringValue(out.Name),
+		Notes:        types.StringValue(out.Notes),
+		Organization: types.StringValue(organizationName),
+		Region:       types.StringValue(out.Region.Slug),
+		HTMLURL:      types.StringValue(out.HtmlURL),
+		State:        types.StringValue(string(out.State)),
+	})
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 }
