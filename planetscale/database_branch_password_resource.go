@@ -2,6 +2,7 @@ package planetscale
 
 import (
 	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -165,7 +166,6 @@ func (r *databaseBranchPasswordResource) Read(ctx context.Context, req resource.
 
 	// Overwrite items with refreshed state
 	state.Username = types.StringValue(databaseBranchPassword.Username)
-	state.Plaintext = types.StringValue(databaseBranchPassword.PlainText)
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, &state)
