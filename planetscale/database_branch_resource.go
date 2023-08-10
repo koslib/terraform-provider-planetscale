@@ -2,6 +2,9 @@ package planetscale
 
 import (
 	"context"
+	"fmt"
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -235,4 +238,65 @@ func (r *databaseBranchResource) Configure(_ context.Context, req resource.Confi
 	}
 
 	r.client = req.ProviderData.(*planetscale.Client)
+}
+
+func splitDatabaseBranchResourceID(id string) (teamID, _id string, branchName string, ok bool) {
+	attributes := strings.Split(id, "/")
+	requiredAttributesLength := 3
+	if len(attributes) != requiredAttributesLength {
+		return "", "", "", false
+	}
+	return attributes[0], attributes[1], attributes[2], true
+}
+
+func (r *databaseBranchResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	organizationName, databaseName, branchName, ok := splitDatabaseBranchResourceID(req.ID)
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Error importing database",
+			fmt.Sprintf("Invalid id '%s' specified. should be in format \"organization_name/database_name/branch_name\"", req.ID),
+		)
+		return
+	}
+
+	out, err := r.client.DatabaseBranches.Get(ctx, &planetscale.GetDatabaseBranchRequest{
+		Organization: organizationName,
+		Database:     databaseName,
+		Branch:       branchName,
+	})
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error reading project",
+			fmt.Sprintf("Could not get database branch %s %s %s, unexpected error: %s",
+				organizationName,
+				databaseName,
+				branchName,
+				err,
+			),
+		)
+		return
+	}
+
+	tflog.Trace(ctx, "imported database branch", map[string]interface{}{
+		organizationName: organizationName,
+		databaseName:     databaseName,
+		branchName:       branchName,
+	})
+
+	diags := resp.State.Set(ctx, &databaseBranchResourceModel{
+		Name:         types.StringValue(out.Name),
+		Organization: types.StringValue(organizationName),
+		Region:       types.StringValue(out.Region.Slug),
+		HTMLURL:      types.StringValue(out.HtmlURL),
+		Database:     types.StringValue(databaseName),
+		ParentBranch: types.StringValue(out.ParentBranch),
+		BackupID:     types.StringUnknown(),
+		SeedData:     types.StringUnknown(),
+		Production:   types.BoolValue(out.Production),
+		Ready:        types.BoolValue(out.Ready),
+	})
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 }
