@@ -2,6 +2,8 @@ package planetscale
 
 import (
 	"context"
+	"fmt"
+	"strings"
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -221,4 +223,65 @@ func (r *databaseBranchPasswordResource) Configure(_ context.Context, req resour
 	}
 
 	r.client = req.ProviderData.(*planetscale.Client)
+}
+
+func splitDatabaseBranchPasswordResourceID(id string) (teamID, _id string, branchName string, passwordID string, ok bool) {
+	attributes := strings.Split(id, "/")
+	requiredAttributesLength := 4
+	if len(attributes) != requiredAttributesLength {
+		return "", "", "", "", false
+	}
+	return attributes[0], attributes[1], attributes[2], attributes[3], true
+}
+
+func (r *databaseBranchPasswordResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	organizationName, databaseName, branchName, passwordID, ok := splitDatabaseBranchPasswordResourceID(req.ID)
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Error importing database",
+			fmt.Sprintf("Invalid id '%s' specified. should be in format \"organization_name/database_name/branch_name/password_id\"", req.ID),
+		)
+		return
+	}
+
+	out, err := r.client.Passwords.Get(ctx, &planetscale.GetDatabaseBranchPasswordRequest{
+		Organization: organizationName,
+		Database:     databaseName,
+		Branch:       branchName,
+		PasswordId:   passwordID,
+	})
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error reading project",
+			fmt.Sprintf("Could not get database branch %s %s %s %s, unexpected error: %s",
+				organizationName,
+				databaseName,
+				branchName,
+				passwordID,
+				err,
+			),
+		)
+		return
+	}
+
+	tflog.Trace(ctx, "imported database branch password", map[string]interface{}{
+		organizationName: organizationName,
+		databaseName:     databaseName,
+		branchName:       branchName,
+		passwordID:       passwordID,
+	})
+
+	diags := resp.State.Set(ctx, &databaseBranchPasswordResourceModel{
+		Name:         types.StringValue(out.Name),
+		Branch:       types.StringValue(out.Branch.Name),
+		Database:     types.StringValue(databaseName),
+		Organization: types.StringValue(organizationName),
+		Role:         types.StringValue(out.Role),
+		PublicID:     types.StringValue(out.PublicID),
+		Username:     types.StringValue(out.Username),
+	})
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 }
