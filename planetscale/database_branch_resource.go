@@ -266,7 +266,7 @@ func (r *databaseBranchResource) ImportState(ctx context.Context, req resource.I
 	})
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Error reading project",
+			"Error reading database branch",
 			fmt.Sprintf("Could not get database branch %s %s %s, unexpected error: %s",
 				organizationName,
 				databaseName,

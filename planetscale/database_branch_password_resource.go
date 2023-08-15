@@ -252,7 +252,7 @@ func (r *databaseBranchPasswordResource) ImportState(ctx context.Context, req re
 	})
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Error reading project",
+			"Error reading database branch password",
 			fmt.Sprintf("Could not get database branch %s %s %s %s, unexpected error: %s",
 				organizationName,
 				databaseName,

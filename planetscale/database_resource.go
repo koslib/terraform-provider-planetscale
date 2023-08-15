@@ -235,7 +235,7 @@ func (r *databaseResource) ImportState(ctx context.Context, req resource.ImportS
 	})
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Error reading project",
+			"Error reading database",
 			fmt.Sprintf("Could not get database %s %s, unexpected error: %s",
 				organizationName,
 				databaseName,
