@@ -224,7 +224,7 @@ func (r *databaseResource) ImportState(ctx context.Context, req resource.ImportS
 	if !ok {
 		resp.Diagnostics.AddError(
 			"Error importing database",
-			fmt.Sprintf("Invalid id '%s' specified. should be in format \"organization_name/database_name\"", req.ID),
+			fmt.Sprintf("Invalid input '%s' provided. should be in format \"organization_name/database_name\"", req.ID),
 		)
 		return
 	}
@@ -236,7 +236,7 @@ func (r *databaseResource) ImportState(ctx context.Context, req resource.ImportS
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error reading database",
-			fmt.Sprintf("Could not get database %s %s, unexpected error: %s",
+			fmt.Sprintf("Could not get database %s %s, unexpected error: %v",
 				organizationName,
 				databaseName,
 				err,

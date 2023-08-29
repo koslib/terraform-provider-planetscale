@@ -254,7 +254,7 @@ func (r *databaseBranchResource) ImportState(ctx context.Context, req resource.I
 	if !ok {
 		resp.Diagnostics.AddError(
 			"Error importing database",
-			fmt.Sprintf("Invalid id '%s' specified. should be in format \"organization_name/database_name/branch_name\"", req.ID),
+			fmt.Sprintf("Invalid input '%s' provided. should be in format \"organization_name/database_name/branch_name\"", req.ID),
 		)
 		return
 	}
@@ -267,7 +267,7 @@ func (r *databaseBranchResource) ImportState(ctx context.Context, req resource.I
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error reading database branch",
-			fmt.Sprintf("Could not get database branch %s %s %s, unexpected error: %s",
+			fmt.Sprintf("Could not get database branch %s %s %s, unexpected error: %v",
 				organizationName,
 				databaseName,
 				branchName,
