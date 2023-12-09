@@ -25,7 +25,7 @@ A database branch resource. This resource allows you to create and manage databa
 
 - `backup_id` (String) The ID of the backup to create the database branch from. If not specified, the database's default branch will be used.
 - `parent_branch` (String) The name of the parent branch to create the database branch from. If not specified, the database's default branch will be used.
-- `region` (String) The region to create the database branch in. If not specified, the organization's default region will be used. Values supported are: us-east, us-west, eu-west, ap-southeast, ap-south, ap-northeast, eu-central, aws-ap-southeast-2, aws-sa-east-1, aws-sa-east-2. For more information on regions, please see here: https://planetscale.com/docs/reference/region.
+- `region` (String) The region where the database will be created. If not specified, the default region for the organization will be used. Currently, following regions are supported: ap-northeast, ap-south, ap-southeast, aws-ap-southeast-2, eu-central, eu-west, aws-eu-west-2, aws-sa-east-1, us-east, aws-us-east-2, us-west, gcp-us-central1, gcp-us-east4, gcp-northamerica-northeast1, gcp-asia-northeast3. For more information on regions, please see here: https://planetscale.com/docs/concepts/regions.
 - `seed_data` (String) The name of the database branch to seed the new database branch with. If not specified, the database's default branch will be used.
 
 ### Read-Only
