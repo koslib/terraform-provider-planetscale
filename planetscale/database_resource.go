@@ -66,21 +66,28 @@ func (r *databaseResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 			"region": schema.StringAttribute{
 				Optional: true,
 				Description: "The region where the database will be created. If not specified, the default region" +
-					" for the organization will be used. Values supported are: us-east, us-west, eu-west, ap-southeast," +
-					" ap-south, ap-northeast, eu-central, aws-ap-southeast-2, aws-sa-east-1, aws-sa-east-2. For more information" +
-					" on regions, please see here: https://planetscale.com/docs/reference/region.",
+					" for the organization will be used. Currently, following regions are supported: " +
+					"ap-northeast, ap-south, ap-southeast, aws-ap-southeast-2, eu-central, eu-west, aws-eu-west-2, " +
+					"aws-sa-east-1, us-east, aws-us-east-2, us-west, gcp-us-central1, gcp-us-east4, " +
+					"gcp-northamerica-northeast1, gcp-asia-northeast3. For more information on regions, " +
+					"please see here: https://planetscale.com/docs/concepts/regions.",
 				Validators: []validator.String{
 					stringvalidator.OneOf(
-						"us-east",
-						"us-west",
-						"eu-west",
-						"ap-southeast",
-						"ap-south",
 						"ap-northeast",
-						"eu-central",
+						"ap-south",
+						"ap-southeast",
 						"aws-ap-southeast-2",
+						"eu-central",
+						"eu-west",
+						"aws-eu-west-2",
 						"aws-sa-east-1",
-						"aws-sa-east-2",
+						"us-east",
+						"aws-us-east-2",
+						"us-west",
+						"gcp-us-central1",
+						"gcp-us-east4",
+						"gcp-northamerica-northeast1",
+						"gcp-asia-northeast3",
 					),
 				},
 			},
