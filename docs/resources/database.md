@@ -23,7 +23,7 @@ A Planetscale database. This resource will create a new database in your Planets
 ### Optional
 
 - `notes` (String) Notes about the database. These are only visible to you and other members of the organization.
-- `region` (String) The region where the database will be created. If not specified, the default region for the organization will be used. Values supported are: us-east, us-west, eu-west, ap-southeast, ap-south, ap-northeast, eu-central, aws-ap-southeast-2, aws-sa-east-1, aws-sa-east-2. For more information on regions, please see here: https://planetscale.com/docs/reference/region.
+- `region` (String) The region where the database will be created. If not specified, the default region for the organization will be used. Currently, following regions are supported: ap-northeast, ap-south, ap-southeast, aws-ap-southeast-2, eu-central, eu-west, aws-eu-west-2, aws-sa-east-1, us-east, aws-us-east-2, us-west, gcp-us-central1, gcp-us-east4, gcp-northamerica-northeast1, gcp-asia-northeast3. For more information on regions, please see here: https://planetscale.com/docs/concepts/regions.
 
 ### Read-Only
 
